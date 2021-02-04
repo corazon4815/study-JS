@@ -1,0 +1,127 @@
+이벤트 동작원리
+브라우져 동작원리
+그냥 ajax
+자바 스크립트 (구조, 트렌드, ES6등)
+HTML 구조
+CSS 구조 
+
+10일 PPT
+
+1. 돔을깨우치다 
+돔에대해https://dev-junior.tistory.com/12
+
+2. js 트렌드 가상돔
+https://brunch.co.kr/@cadenzah/3
+바닐라 js(순수js) 리액트
+
+<질문>
+바닐라 js와 리액트의 차이점
+
+제이쿼리가 없으면 ajax는? 
+
+<DOM이란?>
+Document Object Model = 자바스크립트가 보기엔 그냥 문자열인 html을 객체화시켜서 
+자바스크립트가 이해할 수 있는 형태로 바꾸는 브라우저에 내장되어있는 API
+(API:프로그램과 프로그램을 연결해주는 매개체)
+
+<가상DOM>
+
+<js 필수 개념>
+    1. 함수, 객체 
+    2. 씽글 쓰레드이므로 비동기(콜백, 프로미스, async/await)
+    3. 호출 스택, 이벤트 루프, 실행컨텍스트
+    4. 프로토타입
+</js>
+
+<js 호출스택  동작원리> 호출되는게 중요!!!
+    function d() {
+        console.log('d');
+    } 
+    function e() {
+        console.log('e');
+    }
+    function a(){
+        function b(){
+            function c(){
+                console.log('c');
+            }
+            c(); 
+            console.log('b');
+        }
+        b();
+        cosole.log('a');
+    }
+    <콘솔> d e c b a 
+    https://www.youtube.com/watch?v=ZIKZAhToJSQ (콜스택동영상)
+자바스크립트 : 싱글쓰레드, 콜백 큐를 사용(메인쓰레드인 이벤트 루프가 싱글쓰레드)
+js 펑션 동작순서-> 호출 스택(call stack) (동전지갑) : d함수를 호출할때 실행이 되고 가장 아래 쌓임 
+console 실행이  끝나면 stack에서 빠져나감
+e함수를 호출하면 실행되고 console실행이되고 stack에서 빠져나감
+a함수를 실행하면 stack 아래에 쌓이고 아래있는 b();가 실행됨 
+b펑션을 보면 c(); 실행 콘솔 c 찍힘 
+그 다음 아래 b가 콘솔에 찍힘 (펑션 b가 끝남)
+콘솔에 a가 찍힘 
+
+
+
+
+<window> :브라우저 전체
+document - 페이지 전체
+
+<func()는 함수가 아님>
+    function func(){
+
+    }  --> 이거는 함수
+
+    func --> 이것도함수라고 볼수있음
+    func() --> 이건 return값이라고 봐야됨 
+
+ex) document.getElementById('hello').onclick = function(){
+    console.log('hello');
+}
+<!---------------------------------------------------------------------->
+const func = function(){
+    console.log('hello');
+}
+document.getElementById('hello').onclick = func(); -->이러면 안됨
+}
+document.getElementById('hello').onclick = func --> 이렇게 써줘야함 
+}
+<!----------------------------------------------------------------------->
+<div id="hello" onclick="func()"></div>  -->여기서 "func()라고 쓰는 이유는 
+onclick자체가function{}으로 감싸주기때문
+
+document.getElementById('hello').onclick = function func(e){
+    console.log(e.target.value); --> 이거를 쓰려고 e를 써준것 
+};
+//내부적으로 func(event)가 호출이 된다 (눈에 안보임)
+
+document.getElementById('hello').onclick = function func(){
+     /e를 안쓰려면 안써줘도 됨
+};
+
+<이벤트 루프>
+https://www.youtube.com/watch?v=4Fyv07LrGhc  세미나
+https://www.youtube.com/watch?v=ZlCYIMVMMX8 노마드
+호출스택 setInterval(tick,2000) (2초마다 tick을 실행하는 함수)
+백그라운드 - 이벤트리스너. 프로미스 tick 2초마다 등 
+태스크 큐 - 백그라운드에서 보낸 콜백들이 실행 대기중 
+
+백그라운드: 백그라운드가 2초마다 tick을 실행해줘! 
+-> 태스크 큐로 보냄 [tick] (이때 이벤트 루프는 
+테스트 큐에서 함수를 꺼내서 호출스택으로 올려줌 
+-> 실행이 되고 끝나면 호출스택에서 사라짐 
+-> 2초후 백그라운드에서 태스크큐로 tick을 보냄
+-> 이벤트 루프가 올림 (계속 반복)
+
+태스크큐는 여러개 (백그라운드에서 온 콜백함수들이 다른 태스크큐에 들어감
+이때 이벤트 루프가 우선순위를 정해 콜스택에 보내줌 )
+
+이벤트루프 시각화 프로그램
+http://latentflip.com/loupe/?code=JC5vbignYnV0dG9uJywgJ2NsaWNrJywgZnVuY3Rpb24gb25DbGljaygpIHsKICAgIHNldFRpbWVvdXQoZnVuY3Rpb24gdGltZXIoKSB7CiAgICAgICAgY29uc29sZS5sb2coJ1lvdSBjbGlja2VkIHRoZSBidXR0b24hJyk7ICAgIAogICAgfSwgMjAwMCk7Cn0pOwoKY29uc29sZS5sb2coIkhpISIpOwoKc2V0VGltZW91dChmdW5jdGlvbiB0aW1lb3V0KCkgewogICAgY29uc29sZS5sb2coIkNsaWNrIHRoZSBidXR0b24hIik7Cn0sIDUwMDApOwoKY29uc29sZS5sb2coIldlbGNvbWUgdG8gbG91cGUuIik7!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D
+<자바스크립트 런타임> 
+https://www.youtube.com/watch?v=8aGhZQkoFbQ
+크롬의 v8같은 실제 자바스크립트 런타임
+메모리 할당이 일어나는 힙과 콜스택이 있음
+클로닝해서 기본 코드를 보면 setTimeout이나 DOM이나 http 요청을 관리하는 코드는 없음
+js - 싱글스레드 (한번에 하나의 싱글 콜스텍을 가지고있음)
