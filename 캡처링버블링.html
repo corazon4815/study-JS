@@ -1,0 +1,121 @@
+<!--  웹브라우저는 웹페이지를 다운받아 렌더링하고 보여주는 프로그램 -->
+웹브라우저가 웹페이지를 다운받는 모습 f12
+다운로드 요청갯수 / 수신한 데이터 크기 / 웹페이지 총 크기 /다운로드 소요시간 /html로드시간 /웹페이지 렌더링 완료시간
+<왜 수신한 데이터 크기와 총 크기가 다를까?>
+웹서버가 압축된 리소스를 전송했기 때문에 (압축되었을경우 : content-encoding: gzip)
+<다운로드소요 시간과 렌더링 완료시간이 다른이유>
+다운로드소요 시간은 html,fonts,style,css 3개가 다운로드와 렌더링 후 바로 웹페이지가 보여짐 
+하지만 그 이후
+이미지인 favicon.ico이 다운로드 되어지기 때문에 다운로드 소요시간이 더 긺
+
+순서 -> 
+웹브라우저는 Request URL로 웹페이지를 요청함
+->
+웹서버는 요청한 url에 대한 응답을 반환
+-> 
+웹브라우저는 <meta charset="utf-8">을 보고 디코딩함  
+->
+웹브라우저는 html을 해석해가다가 css가 있으면 다운로드를 요청함 
+->
+(content-type : text/css; charset=utf-8) <-응답받은모습
+
+
+JS이벤트
+이벤트 : 발생된 일
+클릭 이벤트 (click) - 태그에 클릭이벤트 처리를 위해 onclick="" 형태로 선언하는것을 이벤트 핸들러
+* 클릭이벤트 동작 원리
+    - 태그안에 onclick="js" : js를 onclick이라는 속성에 저장해놓는다
+    - 사용자가 클릭을 하면 <브라우저>는 onclick이라는 곳에 저장해놓은 것을 꺼내서 하나씩 실행한다
+
+<버블링>
+세 개의 div태그에 click 이벤트가 발생했을 때, 이벤트가 발생한 태그의 클래스 이름을 출력하는
+콜백함수를 등록했다. 그리고 나는 세번째 div 태그만 클릭했는데 콘솔창을 보면
+div3 div2 div1이 출력된 것을 볼수 있다
+
+브라우저는 일단 확실하게 이벤트가 발생한 div3의 콜백함수를 실행하고, 상위에 있는
+요소에 동일한 이벤트(click)가 등록되어 있는지 탐색한다
+
+탐생 중 동일한 이벤트가 등록 되어 있는 요소가 있다면 해당 콜백 함수를 실행한다
+
+이벤트 버블링이란 특정한 요소에 어떤 이벤트가 발생했을 때 상위에 있는 요소까지 이벤트가
+전파되는것
+
+<!-- 한번 발생했을때만 이벤트를 실행하고 싶다면? -->
+<Event.stopPropagation()>
+특정한 요소에 특정한 이벤트만 실행하고 캡처링,버블링 되는 것을 막음 (기본이벤트를 막아주진않음)
+<!--이벤트 객체(e)를 꼭 넘겨줘야함!!! -->
+
+const divs = document.querySelectorAll("div");
+
+divs.forEach(div => {
+    div.addEventListner("click", e => {
+        e.stopPropagation(); <전파를 막음> 
+        console.log(e.curentTaget.className);
+    });
+});
+
+<e.preventDefault()> (<a>,<input>,<textarea>의 기본동작을 막을수있다)
+    
+<a href="https://pa-pico.tistory.com">PAPICO 블로그로</a>
+<script>
+    $("a").click(function(e){
+        e.preventDefault();
+        alert("e.preventDefault()가 실행됩니다.")
+    })
+</script>
+
+a태그의 href 속성이 중단되고 alert가 뜸
+
+<캡처링>
+addEventListner()를 사용할 때 세번째 인자인 useCapture와 관련된 개념이 이벤트 버블링(Bubbling)과
+캡쳐링(Capturing)이다. default값은 false(버블링)이며 true로 변경하면 캡쳐링을 통해 이벤트를 전파한다
+
+
+
+<web server VS was(Web Application Server)>
+'우리는 6대의 WAS를 사용하고 있다'
+
+//Web
+-인터넷을 기반으로 한 정보를 공유, 검색할수있게하는 서비스 중 하나
+3가지 요소 : url(주소) http(통신규칙) html(내용)
+
+//Server 
+- 클라이언트에게 네트워크를 통해 정보나 서비스를 제공하는 컴퓨터 시스템
+
+//Web Server 
+- 인터넷을 기반으로 클라이언트에게 웹 서비스를 제공하는 컴퓨터  (컴퓨터 : 전자회로를 이용하여 자동적으로
+계산이나 데이터의 처리를 실행하는 기계)
+
+//브라우저 : 웹서버에게 주소(url), 통신규칙(http)에 맞게 요청하면 알맞은 내용(html)을 응답받음
+//웹서버 : 클라이언트의 요청을 기다리고 웹요청(http)에 대한 데이터를 만들어서 응답,
+         이 때 데이터는 웹에서 처리할 수 있는 html, css, 이미지 등 정적인 데이터로 한정
+
+
+//Web Application 
+- 웹에서 실행되는 응용 프로그램
+
+//Web Application Server
+- 웹 어플리케이션과 서버 환경을 만들어 동작시키는 기능을 제공하는 소프트웨어 프레임워크
+- 웹 어플리케이션을 실행시켜 필요한 기능을 수행하고 그 결과를 웹 서버에게 전달
+
+- php, jsp, asp와 같은 언어들을 사용해 동적인 페이지를 생성할 수 있는 서버
+- 프로그램 실행 환경과 데이터베이스 접속 기능 제공
+- 비지니스 로직수행 가능
+- 웹 서버 + 웹 컨테이너
+* 컨테이너 : jsp, sevlet을 실행시킬 수 있는 소프트웨어
+    - 자바 계열에선 웹 어플리케이션 컨테이너라 부름
+* 웹 어플리케이션 컨테이너 : 웹 어플리케이션이 배포되는 공간
+
+순서 ->
+클라이언트 -> was(web server + web container)에 요청을 보냄
+-> [web server] 요청이 동적 페이지 요청일 시 container로 전송
+-> [web container] servlet 구동 환경 제공
+-> [web container] 동적 컨텐츠 생성
+-> [client]로 제공
+
+
+[web server] = 아파치, 마이크로소프트 iis
+[was] = 톰캣, ibm websphere, JEUS
+
+따라서 웹서버는 정적인 컨텐츠만 줄 수 있고 was는 동적인 컨텐츠를 줄 수 있는 기능이 있는 서버
+"상황에 따라 변하는 정보를 제공할 수 있는가?"

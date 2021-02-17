@@ -1,0 +1,68 @@
+<함수 선언식 : function 키워드로 단독으로 함수를 선언한 것>
+function sum(num1,num2) {
+    return num1+ num2;
+}
+
+<함수 표현식 : 변수에 함수를 할당한 것>
+const sum = function sum(num1, num2){
+    return num1 + num2;
+}
+
+<화살표 함수 arrow funtion>
+식별자가 없으므로 함수 표현식 방법으로 작성해주어야 호출할 수 있음
+
+(num1,num2) => {
+    return num1 +num2;
+}
+
+const sum = (num1,num2) => {
+    return num1 +num2;
+}
+
+const sum = (num1,num2) => num1 +num2;
+}
+
+<매개변수가 1개일 때>
+const pow = x => x * x;
+
+<매개변수가 없을때>
+const printPie = () => 3.14;
+const result = printPie();
+console.log(result);
+
+<내부적으로 객체를 반환할 때> ->중괄호 한쌍과 return을 지우면 객체가 아닌 함수 전체 {}로 보이기 때문에 ()를 해줌
+const getObject = () =>({
+    name: "철수",
+    age : 20
+})
+
+<!-- 일반 함수에서의 this -->
+
+<!-- 화살표 함수에서의 this -->
+일반 함수를 선언할 때 this에 바인딩할 객체가 정적으로 결정되는 것이 아니고 함수를 호출할 때
+함수가 어떻게 호출되었는지에 따라 this에 바인딩할 객체가 동적으로 결정된다고 했다
+화살표 함수는 함수를 선언할 때 this에 바인딩할 객체가 정적으로 결정된다 동적으로
+결정되는 일반함수와는 달리 화살표함수의 this는 언제나 상위 스코프의 this를 가리킨다
+이를 Lexical this라 한다 화살표함수는 앞서 살펴본 Solution 3의 Syntactic sugar이다
+화살표 함수의 this 바인딩 객체 결정방식은 함수의 상위 스코프를 결정하는 렉시컬스코프와 유사하다 
+
+<!-- 화살표 함수로 메소드를 정의하는것은 피해야한다 화살표 함수로 메소드를 정의해보자 -->
+// Bad
+const person = {
+  name: 'Lee',
+  sayHi: () => console.log(`Hi ${this.name}`)
+};
+
+person.sayHi(); // 결과 : Hi undefined
+
+<!-- 이럴땐 ES6의 메소드를 위한 단축표기법 축약메소드표현을 쓰자 -->
+// Good
+const person = {
+  name: 'Lee',
+  sayHi() { // === sayHi: function() {
+    console.log(`Hi ${this.name}`);
+  }
+};
+
+person.sayHi(); // 결과 : Hi Lee
+#4.2 prototype

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>CSS Template</title>
+<meta charset="utf-8">
+</head>
+
+<body>
+    <div class="one">
+        <div class="two">
+          <div class="three">
+              target
+          </div>
+        </div>
+      </div>
+
+<script>
+ document
+  .querySelector('.three')
+  .addEventListener('click', function() {
+    alert('three');
+  }, true);
+ 
+ document
+  .querySelector('.one')
+  .addEventListener('click', function() {
+      alert('one');
+    //   event.stopPropagation();
+    }, true);
+
+document
+  .querySelector('.two')
+  .addEventListener('click', function() {
+    alert('two');
+  }, true);
+
+
+</script>
+  
+</body>
+</html>

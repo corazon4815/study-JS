@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>CSS Template</title>
+<meta charset="utf-8">
+</head>
+
+<body>
+    <a href="https://pa-pico.tistory.com">PAPICO 블로그로</a>
+
+<script>
+   $("a").click(function(e){
+	// e.stopPropagation(); 부모 자식간의 전파를 막는거라 여기선 소용없음
+    e.preventDefault();
+	alert("e.preventDefault()");
+}); 
+</script>
+  
+</body>
+</html>

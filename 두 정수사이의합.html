@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>CSS Template</title>
+<meta charset="utf-8">
+</head>
+
+<body>
+
+
+<script>
+    
+    let sum = 0;
+    let min;
+    let max;
+    solution(5,3);
+ function solution(a, b) {
+ 
+ console.log(a);
+ if(a === b){
+     return a;
+ }
+ if(a > b){
+     min = b;
+     max = a;
+ }else{
+     min = a;
+     max = b;
+ }
+    
+for(let i = min; i<=max; i++){
+    console.log(i);
+    sum = sum+i
+
+    console.log(sum);
+}
+console.log(sum);
+    return sum;
+    
+}
+
+console.log(sum);
+</script>
+  
+</body>
+</html>
+
+3 4 5 12
+
+8 * 3  =12 
