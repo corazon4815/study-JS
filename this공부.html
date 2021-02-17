@@ -1,0 +1,57 @@
+<!-- this : 호출하는 방법에 의해 결정됨 💥💥💥호출하는애가 this💥💥💥누가 실행했냐-->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>this</title>
+<meta charset="utf-8">
+</head>
+
+<body>
+<h1>CODEJONG</h1>
+<Button id ="btn"><h2>Hello</h2></Button>
+
+<script>
+let someone = {
+    name : 'codejong',
+    whoAmI : function(){
+        console.log(this);
+    }
+};
+
+//this : 호출하는 방법에 의해 결정됨 💥💥💥호출하는애가 this💥💥💥누가 실행했냐
+someone.whoAmI(); //whoAmI를 호출한애는 someone
+// {name: "codejong", whoAmI: ƒ}
+//name: "codejong"
+//whoAmI: ƒ ()
+//__proto__: Object
+
+let myWhoAmI = someone.whoAmI;
+myWhoAmI(); //호출한 애가 window
+//Window {window: Window, self: Window, document: document, name: "", location: Location, …}
+
+let btn = document.getElementById('btn');
+
+let bindedWhoAmI = myWhoAmI.bind(someone); //bind -> someone을 this라고 하겠다
+
+btn.addEventListener('click', someone.whoAmI); // someone.whoAmI이라는 값을 넘겨줄뿐이고 호출하는애는 btn임 
+//<Button id ="btn"><h2>Hello</h2></Button>
+
+btn.addEventListener('click', bindedWhoAmI); //bi
+// {name: "codejong", whoAmI: ƒ}
+//name: "codejong"
+//whoAmI: ƒ ()
+//__proto__: Object
+
+bindedWhoAmI();
+// {name: "codejong", whoAmI: ƒ}
+//name: "codejong"
+//whoAmI: ƒ ()
+//__proto__: Object
+
+</script>
+  
+</body>
+</html>
+<!-- this : 호출하는 방법에 의해 결정됨 💥💥💥호출하는애가 this💥💥💥누가 실행했냐-->

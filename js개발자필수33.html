@@ -1,0 +1,36 @@
+<1. 콜스택>
+Call Stack 
+
+
+<2. 자바스크립트 원시타입>
+원시타입 vs Object
+
+원시타입은 불변적 - 그 값 그대로 저장돼있음
+
+String
+
+number
+
+boolean 
+
+Undefined : 정의가 되지 않음 false (""도 false)
+
+null : 존재하지 않음 false
+
+NaN : Not A Number  -> 망한 수학공식 false
+
+<3. 값 타입과 참조타입>
+
+배열 - 참조
+원시타입 - 값
+
+따라서 console.log([10] === [10]) 은 false 
+
+<4. Type Conversion> <!-- ===을 쓰면 형변환이 일어나지않음 --> 
+    😊 ==가 boolean을 만나면 숫자로 바뀜 
+    😊 왼쪽~>오른쪽
+    😊 -가 있으면 Number
+    😊 String > Number > boolean 
+console.log(66 + false); -> 66 (false는 0)
+console.log(55 - true);  -> 54 (true는 1)
+console.log(55 * false);  -> 0

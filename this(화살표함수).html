@@ -1,0 +1,122 @@
+<!-- 화살표 함수에서 없는 세가지 1. 함수이름 2. this 3. arguments -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>CSS Template</title>
+<meta charset="utf-8">
+</head>
+
+<body>
+    
+    <Button id ="btn"><h2>Hello</h2></Button>
+    <Button id ="btn1"><h2>Hello1</h2></Button><br><br>
+
+    <Button id ="btn2"><h2>쿠키저장</h2></Button>
+    <Button id ="btn3"><h2>쿠키가져오기</h2></Button>
+<script>
+
+    let setCookie = function(name, value, exp) {
+        let date = new Date();
+        date.setTime(date.getTime() + exp*24*60*60*1000);
+        document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    };
+
+    const btn2 = document.getElementById('btn2');
+
+    btn2.addEventListener('click', function(){
+        // setCookie(변수이름, 변수값, 기간);
+        setCookie("expend", "j요거", 1);
+        console.log("쿠키가 저장됨")
+    })
+
+    var getCookie = function(name) {
+        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return value? value[2] : null;
+    };
+
+    const btn3 = document.getElementById('btn3');
+
+    btn3.addEventListener('click', function(){
+          // getCookie(변수이름)
+          var is_expend = getCookie("expend");
+          console.log("쿠키 is_expend변수에 저장된 값: "+is_expend);
+    })
+  
+
+
+
+
+
+
+
+    //const myFun = function(){
+
+    //}
+//1. 화살표함수는 익명함수이기 때문에 변수에 담음
+//2. 자기만의 this가 존재하지 않음 (scope 체인 순서에 따라 뒤짐) bind aply call등도 사용X 
+    //const myFun = () => {
+
+    //}
+
+    const btn = document.getElementById('btn');
+
+    let myObj = {
+        count : 0,
+        setCounter : function(){
+            console.log(this.count); //0 
+            btn.addEventListener('click', function(){
+                console.log(this); //<Button id ="btn"><h2>Hello</h2></Button>
+            })
+        }
+    };
+
+    myObj.setCounter();
+    
+    const btn1 = document.getElementById('btn1');
+
+    let myObj1 = {
+        count : 0,
+        setCounter : function(){
+            console.log(this.count); //0 
+            btn1.addEventListener('click', () => {
+                //console.log(this); //{count: 0, setCounter: ƒ}
+                console.log(this.count++);
+            })
+        }
+    };
+
+    myObj1.setCounter();
+
+    const myFun = function (){
+        console.log(arguments); //Arguments(7) [1, 2, 3, 4, 4, 6, 3, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+    }
+    myFun(1,2,3,4,4,6,3); //arguments 배열처럼 하나씩 접근할 수 있음
+
+    const myFun1 = () => {
+        console.log(); //에러
+    }
+    //myFun1(1,2,3,4,4,6,3); //화살표함수에선 arguments가 없음
+    
+    
+//하지만!!!
+    function outter(){
+        const myFun2 = () => {
+            console.log(arguments);//화살표함수엔 arguments가 없기때문에 찾으러 스코프를 올라감
+            //Arguments(4) [1, 2, 3, 4, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+        }
+        myFun2();
+    }
+
+    outter(1,2,3,4);
+
+
+    
+
+
+    
+
+</script>
+<!-- https://www.youtube.com/watch?v=4zjKltnIBug 9:24 -->
+</body>
+</html>

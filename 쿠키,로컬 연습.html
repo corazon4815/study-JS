@@ -1,0 +1,93 @@
+<!-- 화살표 함수에서 없는 세가지 1. 함수이름 2. this 3. arguments -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>CSS Template</title>
+<meta charset="utf-8">
+</head>
+
+<body>
+    
+    <Button id ="btn2" name ="쿠키1"><h2>쿠키저장</h2></Button>
+    <Button id ="btn3" name ="쿠키1"><h2>쿠키가져오기</h2></Button>
+    <Button id ="btn4" name ="쿠키1"><h2>쿠키삭제하기</h2></Button>
+    <br><br>
+    <Button id ="btn5" name ="로컬스토리지"><h2>로컬스토리지저장</h2></Button>
+    <Button id ="btn6" name ="로컬스토리지"><h2>로컬스토리지가져오기</h2></Button>
+    <Button id ="btn7" name ="로컬스토리지"><h2>로컬스토리지삭제하기</h2></Button>
+<script>
+    let btn5 = document.getElementById('btn5');
+
+        btn5.addEventListener('click', function(event){
+        let name = event.target.getAttribute('name');
+
+        localStorage.test = name;
+        console.log(name+"저장");
+    })
+
+    let btn6 = document.getElementById('btn6');
+
+        btn6.addEventListener('click', function(){
+            console.log(localStorage.test);
+    })
+
+    let btn7 = document.getElementById('btn7');
+
+        btn7.addEventListener('click', function(event){
+            delete localStorage.test;
+            console.log("로컬스토리지가 삭제되었다")
+    })
+
+        
+
+        let setCookie = function(name, value, exp) {
+        let date = new Date();
+        date.setTime(date.getTime() + exp*24*60*60*1000);
+        document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    };
+
+    let btn2 = document.getElementById('btn2');
+
+    btn2.addEventListener('click', function(event){
+        let name = event.target.getAttribute('name');
+
+        // setCookie(변수이름, 변수값, 기간);
+        setCookie(name, "j요거", 1);
+        console.log(event.target.getAttribute('name'))
+    })
+
+    let getCookie = function(name) {
+        let value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return value? value[2] : null;
+    };
+
+    let btn3 = document.getElementById('btn3');
+
+    btn3.addEventListener('click', function(event){
+          // getCookie(변수이름)
+          var is_expend = getCookie(event.target.getAttribute('name'));
+          console.log("변수에 저장된 값: "+is_expend);
+    })
+
+    let deleteCookie = function(name) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+    }   
+
+    let btn4 = document.getElementById('btn4');
+
+    btn4.addEventListener('click', function(event){
+           // deleteCookie(변수이름)
+           deleteCookie(event.target.getAttribute('name'));
+           console.log("쿠키가 사라졌어요")
+    })
+
+
+
+
+
+  
+</script>
+
+</body>
+</html>

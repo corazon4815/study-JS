@@ -1,0 +1,49 @@
+<렌더링 엔진과 자바스크립트 엔진>
+렌더링 엔진 -> html, css로 작성된 컨텐츠를 렌더링 
+
+자바스크립트 엔지 -> js코드를 해석하고 실행하는 인터프리터
+
+<Call Stack, Task Queue(Event Queue), Heap>
+<자바스크립트는 싱글 스레드>
+<!-- Call Stack -->
+요청을 순차적으로 Call Stack에 담음
+-> 메소드가 실행될 때 Push 되고 실행이 끝나면 Pop
+
+<!-- Heap -->(변수와 객체들의 모든 메모리 할당이 일어남)
+동적으로 생성된 객체(인스턴스)는 Heap 영역에 할당됨 
+동적으로 할당된 변수의 경우 컴파일러는 얼마나 많은 메모리를 필요로할지
+알수없음
+따라서 컴파일러는 스택에 변수를 위한 공간을 할당할 수 없기 때문에 <동적변수>를 런타임시점에 Heap 공간에 할당받음 
+
+<!-- Task Queue(Event Queue) --> (마우스클릭, setTimeout, http요청 등)
+js의 런타임환경에서는 처리해야하는 Task들을 임시로 저장하는 대기 Queue가 존재함
+그런 대기큐를 Task Queue 또는 Event Queue라고 한다
+
+이 Task Queue의 Task들은 Call Stack이 empty일때 대기열에
+들어온 순서대로 수행됨 
+
+setTimeout(function() {
+    console.log("안녕하세요");
+ },0);
+ console.log("안녕히가세요");
+
+ <!-- setTimeout이 0이기 때문에 바로실행될것 같지만 이 함수는 비동기로 호출되므로 Call Stack에 쌓이지 않고 Task Queue에 들어감 -->
+
+ <그래서!!!> 호출스택에 수행시간이 긴 함수가 있으면 "블록킹" 상황이 생기므로
+ 브라우저의 렌더링 동작을 방해하지않고 응답을 끊지도 않게 비동기콜백(Asynchronous Callbacks)을 사용해야한다
+
+ <JavaScript의 처리속도>
+WebAPI는 브라우저에서 제공되는 API이며, Ajax나 Timeout같은 비동기 작업을 실행한다
+자바스크립트에서 setTimeout함수를 실행하면 자바스크립트 엔진은 Web API에 setTimeout을 요청한다 
+
+<비동기 작업이 들어왔을때 예>
+1. CallStack에서는 Web API 요청 이후, setTimeout 함수가 종료되기 때문에 제거된다 (pop)
+2. Web API는 요청받은 setTimeout을 완료하고, 전달받은 Callback을 Task Queue에 넘겨준다
+3. Task Queue는 Callback Queue라고도 하는데 Web API에서 넘겨받은 Callback 함수를 저장하기 때문이다 
+이 Callback함수들은 Task Queue에 enqueue되어 있다가 자바스크립트 엔진의 CallStack이 비었을 때,
+Call Stack으로 Push된다
+4. Event Loop가 Call Stack이 비어있는지 아닌지, Task Queue에 Task가 존재하는지 아닌지 판단하는 역할을 맡는다
+
+
+
+
