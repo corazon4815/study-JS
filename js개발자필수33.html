@@ -7,17 +7,17 @@ Call Stack
 
 원시타입은 불변적 - 그 값 그대로 저장돼있음
 
-String
+💛 String
 
-number
+💛 number
 
-boolean 
+💛 boolean 
 
-Undefined : 정의가 되지 않음 false (""도 false)
+💛 Undefined : 정의가 되지 않음 false (""도 false)
 
-null : 존재하지 않음 false
+💛 null : 존재하지 않음 false
 
-NaN : Not A Number  -> 망한 수학공식 false
+💛 NaN : Not A Number  -> 망한 수학공식 false
 
 <3. 값 타입과 참조타입>
 
@@ -31,6 +31,29 @@ NaN : Not A Number  -> 망한 수학공식 false
     😊 왼쪽~>오른쪽
     😊 -가 있으면 Number
     😊 String > Number > boolean 
+
 console.log(66 + false); -> 66 (false는 0)
 console.log(55 - true);  -> 54 (true는 1)
 console.log(55 * false);  -> 0
+
+<5. Typeof>
+
+console.log(typeof "11223") -> String
+console.log(typeof true) -> boolean
+console.log(typeof function(){}) -> function
+console.log(typeof null) -> object 💥버그임
+
+<6. Scope>
+const h = "hello"; -> global scope
+
+if(true){ 
+    const hello = "hi";
+    console.log(hello); 
+}    
+console.log(hello); 💥에러 //var면 출력됨
+
+👌작은 버블은 큰 버블에 접근 할 수 있다👌
+
+<7. Expression VS Statement>
+    Expression -> 무언가를 return해서 value가 나오는것 
+    Statement 명령, 지시
