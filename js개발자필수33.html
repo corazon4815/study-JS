@@ -50,7 +50,7 @@ if(true){
     const hello = "hi";
     console.log(hello); 
 }    
-console.log(hello); 💥에러 //var면 출력됨
+console.log(hello); 💥에러 //var면 출력됨(호이스팅이 되기때문에)
 
 👌작은 버블은 큰 버블에 접근 할 수 있다👌
 
@@ -71,8 +71,8 @@ console.log(hello); 💥에러 //var면 출력됨
         sayHi();  -->
 
            
-    Statement 명령, 지시, 함수?  (ex) if, else, Else if, for, while 등) ,
-              아무것로 리턴하지않음
+    Statement 명령, 지시, 함수?  (ex) if, else, Else if, for, while 등)
+              hoisting 됨
               
 
 <declaration VS Expression>
@@ -93,6 +93,10 @@ const add = (a,b) => a + b;
 
 console.log(awesome); -> 표현식에선 에러가 난다
 👌따라서 hoisting 발생을 막기위해 Expression 을 권장함👌
+
+
+<declaration VS Statement>
+모든 declaration은 Statement지만 모든 Statement이 declaration인건 아니다 
 
 <8. IIFE(Immediately Invoked Function Exprssion(즉시호출되는함수식))와 모듈>
 
