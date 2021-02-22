@@ -7,11 +7,32 @@
 </head>
 <body>
 <script>
-var a = "b"
-var a = "a"
-
-
-
+    solution(["mislav", "stanko", "mislav", "ana"],	["stanko", "ana", "mislav"])
+    function solution(participant, completion) {
+    let sortArr = participant.sort();
+    let arr = participant.slice(0);
+    console.log(completion.length);
+       
+      if([...new Set(participant)].length == completion.length){
+        for(let z = 0; z<sortArr.length; z++){
+            if(sortArr[z]==sortArr[z+1]){
+                return sortArr[z]
+            } 
+        }
+    }else{
+    for(let i = 0; i<participant.length; i++){ 
+        if(completion.indexOf(participant[i]) == -1){
+            arr = participant[i];
+            
+        }
+        
+       
+    }
+}
+    console.log(arr.join());
+    return arr;
+    
+}
 </script>
 
 </body>
